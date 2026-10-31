@@ -1,101 +1,50 @@
-const searchInput = document.getElementById("searchInput");
-const categoryFilter = document.getElementById("categoryFilter");
-const pricingFilter = document.getElementById("pricingFilter");
-const toolsGrid = document.getElementById("toolsGrid");
-const status = document.getElementById("status");
-const refreshBtn = document.getElementById("refreshBtn");
-
-const state = {
-  tools: [],
-};
-
-async function fetchTools() {
-  try {
-    status.textContent = "Loading AI tools...";
-    const response = await fetch("./tools.json", { cache: "no-store" });
-
-    if (!response.ok) {
-      throw new Error("Unable to load tool list.");
-    }
-
-    const data = await response.json();
-    state.tools = data;
-    renderTools();
-    status.textContent = `Showing ${data.length} AI tools for students.`;
-  } catch (error) {
-    status.textContent = "Could not fetch the tool list. Please try again.";
-    console.error(error);
+[
+  {
+    "name": "ChatGPT",
+    "category": "Writing",
+    "pricing": "Free",
+    "bestFor": "Brainstorming essays, writing drafts, and improving clarity",
+    "description": "A versatile AI assistant for writing, summarizing, and brainstorming ideas.",
+    "url": "https://chat.openai.com/"
+  },
+  {
+    "name": "Perplexity",
+    "category": "Research",
+    "pricing": "Freemium",
+    "bestFor": "Quick research summaries and source-based answers",
+    "description": "AI-powered research helper that gives answers with citations and source links.",
+    "url": "https://www.perplexity.ai/"
+  },
+  {
+    "name": "Notion AI",
+    "category": "Study",
+    "pricing": "Freemium",
+    "bestFor": "Organizing class notes, study plans, and summaries",
+    "description": "Built into Notion for note-taking, summarization, and revision workflows.",
+    "url": "https://www.notion.so/product/ai"
+  },
+  {
+    "name": "GitHub Copilot",
+    "category": "Coding",
+    "pricing": "Freemium",
+    "bestFor": "Coding help, auto-complete, and debugging support",
+    "description": "AI pair programmer for code suggestions, fixes, and faster development.",
+    "url": "https://github.com/features/copilot"
+  },
+  {
+    "name": "Canva AI",
+    "category": "Design",
+    "pricing": "Free",
+    "bestFor": "Creating presentations, graphics, and simple visual design",
+    "description": "Easy design tool with AI-generated layouts and visual content creation.",
+    "url": "https://www.canva.com/"
+  },
+  {
+    "name": "Khanmigo",
+    "category": "Learning",
+    "pricing": "Free",
+    "bestFor": "Learning concepts, practicing questions, and getting tutoring help",
+    "description": "AI tutor for exploring topics, practicing skills, and building understanding.",
+    "url": "https://www.khanacademy.org/khan-labs"
   }
-}
-
-function getFilteredTools() {
-  const searchValue = searchInput.value.trim().toLowerCase();
-  const selectedCategory = categoryFilter.value;
-  const selectedPricing = pricingFilter.value;
-
-  return state.tools.filter((tool) => {
-    const matchesCategory =
-      selectedCategory === "all" || tool.category === selectedCategory;
-
-    const matchesPricing =
-      selectedPricing === "all" || (tool.pricing || "Free") === selectedPricing;
-
-    const searchText = [
-      tool.name,
-      tool.description,
-      tool.bestFor,
-      tool.category,
-      tool.pricing,
-    ]
-      .join(" ")
-      .toLowerCase();
-
-    const matchesSearch = !searchValue || searchText.includes(searchValue);
-
-    return matchesCategory && matchesPricing && matchesSearch;
-  });
-}
-
-function renderTools() {
-  const filteredTools = getFilteredTools();
-
-  if (filteredTools.length === 0) {
-    toolsGrid.innerHTML = `
-      <div class="empty-state">
-        No tools match your search. Try another keyword, category, or pricing option.
-      </div>
-    `;
-    return;
-  }
-
-  toolsGrid.innerHTML = filteredTools
-    .map(
-      (tool) => `
-        <article class="tool-card">
-          <div class="card-top">
-            <span class="category-pill">${tool.category}</span>
-            <span class="free-pill">${tool.pricing || "Free"}</span>
-          </div>
-
-          <h3>${tool.name}</h3>
-          <p>${tool.description}</p>
-
-          <ul>
-            <li><strong>Best for:</strong> ${tool.bestFor}</li>
-          </ul>
-
-          <a href="${tool.url}" target="_blank" rel="noopener noreferrer">
-            Open tool
-          </a>
-        </article>
-      `
-    )
-    .join("");
-}
-
-searchInput.addEventListener("input", renderTools);
-categoryFilter.addEventListener("change", renderTools);
-pricingFilter.addEventListener("change", renderTools);
-refreshBtn.addEventListener("click", fetchTools);
-
-fetchTools();
+]

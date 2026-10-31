@@ -1,5 +1,6 @@
 const searchInput = document.getElementById("searchInput");
 const categoryFilter = document.getElementById("categoryFilter");
+const pricingFilter = document.getElementById("pricingFilter");
 const toolsGrid = document.getElementById("toolsGrid");
 const status = document.getElementById("status");
 const refreshBtn = document.getElementById("refreshBtn");
@@ -10,7 +11,7 @@ const state = {
 
 async function fetchTools() {
   try {
-    status.textContent = "Loading free AI tools...";
+    status.textContent = "Loading AI tools...";
     const response = await fetch("./tools.json", { cache: "no-store" });
 
     if (!response.ok) {
@@ -18,9 +19,9 @@ async function fetchTools() {
     }
 
     const data = await response.json();
-    state.tools = data;
+    state.tools = Array.isArray(data) ? data : [];
     renderTools();
-    status.textContent = `Showing ${data.length} free AI tools for students.`;
+    status.textContent = `Showing ${state.tools.length} AI tools for students.`;
   } catch (error) {
     status.textContent = "Could not fetch the tool list. Please try again.";
     console.error(error);
@@ -30,23 +31,28 @@ async function fetchTools() {
 function getFilteredTools() {
   const searchValue = searchInput.value.trim().toLowerCase();
   const selectedCategory = categoryFilter.value;
+  const selectedPricing = pricingFilter.value;
 
   return state.tools.filter((tool) => {
     const matchesCategory =
       selectedCategory === "all" || tool.category === selectedCategory;
+
+    const matchesPricing =
+      selectedPricing === "all" || (tool.pricing || "Free") === selectedPricing;
 
     const searchText = [
       tool.name,
       tool.description,
       tool.bestFor,
       tool.category,
+      tool.pricing,
     ]
       .join(" ")
       .toLowerCase();
 
     const matchesSearch = !searchValue || searchText.includes(searchValue);
 
-    return matchesCategory && matchesSearch;
+    return matchesCategory && matchesPricing && matchesSearch;
   });
 }
 
@@ -56,7 +62,7 @@ function renderTools() {
   if (filteredTools.length === 0) {
     toolsGrid.innerHTML = `
       <div class="empty-state">
-        No tools match your search. Try another keyword or category.
+        No tools match your search. Try another keyword, category, or pricing option.
       </div>
     `;
     return;
@@ -68,7 +74,7 @@ function renderTools() {
         <article class="tool-card">
           <div class="card-top">
             <span class="category-pill">${tool.category}</span>
-            <span class="free-pill">Free</span>
+            <span class="free-pill">${tool.pricing || "Free"}</span>
           </div>
 
           <h3>${tool.name}</h3>
@@ -89,6 +95,7 @@ function renderTools() {
 
 searchInput.addEventListener("input", renderTools);
 categoryFilter.addEventListener("change", renderTools);
+pricingFilter.addEventListener("change", renderTools);
 refreshBtn.addEventListener("click", fetchTools);
 
 fetchTools();
