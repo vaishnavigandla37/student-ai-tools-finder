@@ -4,10 +4,29 @@ const pricingFilter = document.getElementById("pricingFilter");
 const toolsGrid = document.getElementById("toolsGrid");
 const status = document.getElementById("status");
 const refreshBtn = document.getElementById("refreshBtn");
+const statsTools = document.getElementById("statsTools");
 
 const state = {
   tools: [],
 };
+
+function slugify(value = "") {
+  return String(value)
+    .trim()
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/(^-|-$)/g, "");
+}
+
+function getPricingClass(value = "Free") {
+  const normalized = String(value).trim();
+
+  if (normalized.toLowerCase() === "free") return "free";
+  if (normalized.toLowerCase() === "freemium") return "freemium";
+  if (normalized.toLowerCase() === "paid") return "paid";
+
+  return "free";
+}
 
 async function fetchTools() {
   try {
@@ -22,6 +41,7 @@ async function fetchTools() {
     state.tools = Array.isArray(data) ? data : [];
     renderTools();
     status.textContent = `Showing ${state.tools.length} AI tools for students.`;
+    statsTools.textContent = state.tools.length;
   } catch (error) {
     status.textContent = "Could not fetch the tool list. Please try again.";
     console.error(error);
@@ -69,27 +89,31 @@ function renderTools() {
   }
 
   toolsGrid.innerHTML = filteredTools
-    .map(
-      (tool) => `
-        <article class="tool-card">
+    .map((tool) => {
+      const categoryClass = `category-${slugify(tool.category || "General")}`;
+      const pricingClass = `pricing-${getPricingClass(tool.pricing || "Free")}`;
+
+      return `
+        <article class="tool-card ${categoryClass}">
           <div class="card-top">
             <span class="category-pill">${tool.category}</span>
-            <span class="free-pill">${tool.pricing || "Free"}</span>
+            <span class="pricing-pill ${pricingClass}">${tool.pricing || "Free"}</span>
           </div>
 
           <h3>${tool.name}</h3>
           <p>${tool.description}</p>
 
-          <ul>
-            <li><strong>Best for:</strong> ${tool.bestFor}</li>
-          </ul>
+          <div class="tool-meta">
+            <span class="meta-label">Best for</span>
+            <span>${tool.bestFor}</span>
+          </div>
 
-          <a href="${tool.url}" target="_blank" rel="noopener noreferrer">
-            Open tool
+          <a class="tool-link" href="${tool.url}" target="_blank" rel="noopener noreferrer">
+            Open tool <span aria-hidden="true">↗</span>
           </a>
         </article>
-      `
-    )
+      `;
+    })
     .join("");
 }
 

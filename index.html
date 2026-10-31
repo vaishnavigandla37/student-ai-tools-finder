@@ -7,22 +7,55 @@
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <div class="container">
+    <div class="page-shell">
       <header class="header">
-        <div>
-          <p class="eyebrow">Student productivity</p>
-          <h1>Free AI Tools for Students</h1>
+        <div class="brand">
+          <div class="brand-badge" aria-hidden="true">AI</div>
+          <div>
+            <p class="eyebrow">Student productivity</p>
+            <h1>Free AI Tools for Students</h1>
+          </div>
         </div>
         <button id="refreshBtn" class="primary-btn">Refresh Tools</button>
       </header>
 
-      <section class="toolbar">
-        <input
-          id="searchInput"
-          type="text"
-          placeholder="Search for a tool or feature..."
-          aria-label="Search AI tools"
-        />
+      <section class="hero-panel">
+        <div class="hero-copy">
+          <span class="chip">Curated for students</span>
+          <h2>Find the right AI tools for studying, writing, coding, and research.</h2>
+          <p>
+            Explore free and student-friendly tools that make assignments, notes,
+            and projects easier to manage.
+          </p>
+        </div>
+
+        <div class="hero-stats" aria-label="Tool highlights">
+          <div class="stat-card">
+            <strong id="statsTools">0</strong>
+            <span>Curated tools</span>
+          </div>
+          <div class="stat-card">
+            <strong>Free</strong>
+            <span>Access options</span>
+          </div>
+          <div class="stat-card">
+            <strong>Study</strong>
+            <span>Ready for class</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="toolbar" aria-label="Tool filters">
+        <label class="search-field" for="searchInput">
+          <span class="sr-only">Search for a tool or feature</span>
+          <input
+            id="searchInput"
+            type="text"
+            placeholder="Search for a tool or feature..."
+            aria-label="Search AI tools"
+          />
+        </label>
+
         <select id="categoryFilter" aria-label="Filter by category">
           <option value="all">All categories</option>
           <option value="Writing">Writing</option>
@@ -32,6 +65,7 @@
           <option value="Study">Study</option>
           <option value="Design">Design</option>
         </select>
+
         <select id="pricingFilter" aria-label="Filter by price">
           <option value="all">All pricing</option>
           <option value="Free">Free</option>

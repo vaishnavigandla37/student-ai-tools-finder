@@ -1,67 +1,432 @@
-[
-  {
-    "name": "ChatGPT Free",
-    "category": "Writing",
-    "description": "Great for writing help, explanations, brainstorming, and quick study support.",
-    "bestFor": "Essay drafting, notes, and concept summaries",
-    "url": "https://chat.openai.com/",
-    "pricing": "Free"
-  },
-  {
-    "name": "Google Gemini",
-    "category": "Learning",
-    "description": "Helps students explain topics, generate study questions, and summarize content.",
-    "bestFor": "Revision and understanding difficult lessons",
-    "url": "https://gemini.google.com/",
-    "pricing": "Free"
-  },
-  {
-    "name": "Perplexity",
-    "category": "Research",
-    "description": "Useful for finding reliable answers and research sources quickly.",
-    "bestFor": "Research topics and gathering references",
-    "url": "https://www.perplexity.ai/",
-    "pricing": "Freemium"
-  },
-  {
-    "name": "Canva Magic Studio",
-    "category": "Design",
-    "description": "Lets students create presentations, posters, and visual summaries with AI assistance.",
-    "bestFor": "Slides, posters, and visual projects",
-    "url": "https://www.canva.com/",
-    "pricing": "Freemium"
-  },
-  {
-    "name": "Grammarly",
-    "category": "Writing",
-    "description": "Improves grammar, clarity, and sentence quality for essays and assignments.",
-    "bestFor": "Writing improvement and proofreading",
-    "url": "https://www.grammarly.com/",
-    "pricing": "Freemium"
-  },
-  {
-    "name": "QuillBot",
-    "category": "Writing",
-    "description": "Helps rewrite text, simplify explanations, and improve academic writing.",
-    "bestFor": "Paraphrasing and sentence rewriting",
-    "url": "https://quillbot.com/",
-    "pricing": "Freemium"
-  },
-  {
-    "name": "Khan Academy",
-    "category": "Study",
-    "description": "Free mini-lessons and explanations that help students learn step by step.",
-    "bestFor": "Math, science, and guided learning",
-    "url": "https://www.khanacademy.org/",
-    "pricing": "Free"
-  },
-  {
-    "name": "GitHub Copilot for Students",
-    "category": "Coding",
-    "description": "Supports coding students with suggestions, explanations, and debugging help.",
-    "bestFor": "Programming assignments and code learning",
-    "url": "https://github.com/features/copilot",
-    "pricing": "Free"
-  }
-]
+* {
+  box-sizing: border-box;
+}
 
+:root {
+  --bg: #f3f7ff;
+  --panel: #ffffff;
+  --panel-soft: #eef4ff;
+  --ink: #132238;
+  --muted: #51627a;
+  --border: rgba(29, 78, 216, 0.08);
+  --primary: #4f46e5;
+  --primary-dark: #312e81;
+  --accent: #7c3aed;
+  --writing: #7c3aed;
+  --research: #2563eb;
+  --learning: #10b981;
+  --coding: #f59e0b;
+  --study: #ec4899;
+  --design: #06b6d4;
+  --free: #16a34a;
+  --freemium: #f59e0b;
+  --paid: #ef4444;
+  --shadow: 0 18px 40px rgba(79, 70, 229, 0.12);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(180deg, #edf4ff 0%, #f7f7ff 100%);
+  color: var(--ink);
+}
+
+button,
+input,
+select {
+  font: inherit;
+}
+
+a {
+  text-decoration: none;
+}
+
+.page-shell {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 48px 20px 80px;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 28px;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.brand-badge {
+  width: 58px;
+  height: 58px;
+  border-radius: 18px;
+  background: linear-gradient(135deg, var(--primary) 0%, #7c3aed 100%);
+  display: grid;
+  place-items: center;
+  color: #fff;
+  font-size: 1.2rem;
+  font-weight: 700;
+  box-shadow: 0 16px 30px rgba(79, 70, 229, 0.22);
+}
+
+.eyebrow {
+  margin: 0 0 8px;
+  color: var(--primary);
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+}
+
+h1 {
+  margin: 0;
+  font-size: clamp(2rem, 4vw, 3rem);
+  line-height: 1.1;
+}
+
+.primary-btn {
+  border: none;
+  border-radius: 14px;
+  padding: 0.9rem 1.4rem;
+  background: linear-gradient(135deg, var(--primary) 0%, #7c3aed 100%);
+  color: #fff;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 16px 30px rgba(79, 70, 229, 0.18);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.primary-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 18px 30px rgba(79, 70, 229, 0.22);
+}
+
+.hero-panel {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  gap: 20px;
+  align-items: center;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.96) 0%, rgba(238, 244, 255, 0.95) 100%);
+  border: 1px solid var(--border);
+  border-radius: 28px;
+  padding: 28px;
+  box-shadow: var(--shadow);
+}
+
+.hero-copy {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.chip {
+  display: inline-flex;
+  align-self: flex-start;
+  padding: 0.5rem 0.9rem;
+  border-radius: 999px;
+  background: rgba(79, 70, 229, 0.08);
+  color: var(--primary);
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
+.hero-copy h2 {
+  margin: 0;
+  font-size: clamp(1.5rem, 2.2vw, 2.4rem);
+  line-height: 1.25;
+}
+
+.hero-copy p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 1.02rem;
+  line-height: 1.7;
+}
+
+.hero-stats {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(120px, 1fr));
+  gap: 12px;
+}
+
+.stat-card {
+  background: rgba(255, 255, 255, 0.96);
+  border: 1px solid rgba(79, 70, 229, 0.08);
+  border-radius: 18px;
+  padding: 18px 14px;
+  text-align: center;
+  box-shadow: 0 10px 25px rgba(15, 23, 42, 0.04);
+}
+
+.stat-card strong {
+  display: block;
+  font-size: 1.2rem;
+  color: var(--ink);
+  margin-bottom: 6px;
+}
+
+.stat-card span {
+  color: var(--muted);
+  font-size: 0.82rem;
+}
+
+.toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  background: rgba(255, 255, 255, 0.8);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  padding: 16px;
+  margin-top: 26px;
+  box-shadow: 0 12px 30px rgba(15, 23, 42, 0.03);
+}
+
+.search-field {
+  flex: 1 1 260px;
+}
+
+.search-field input,
+.toolbar select {
+  width: 100%;
+  border: 1px solid rgba(148, 163, 184, 0.35);
+  background: #fff;
+  border-radius: 12px;
+  padding: 0.9rem 1rem;
+  color: var(--ink);
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.search-field input:focus,
+.toolbar select:focus {
+  border-color: rgba(79, 70, 229, 0.6);
+  box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.08);
+}
+
+.toolbar select {
+  flex: 0 1 180px;
+}
+
+.status {
+  margin: 20px 0 0;
+  color: var(--muted);
+  font-weight: 600;
+}
+
+.tools-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+  margin-top: 22px;
+}
+
+.tool-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 22px;
+  padding: 18px 18px 16px;
+  box-shadow: 0 16px 32px rgba(15, 23, 42, 0.05);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  overflow: hidden;
+}
+
+.tool-card::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 5px;
+  background: var(--category-color, var(--primary));
+}
+
+.tool-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 18px 34px rgba(79, 70, 229, 0.12);
+}
+
+.card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+}
+
+.category-pill,
+.pricing-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  padding: 0.45rem 0.7rem;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+.category-pill {
+  background: rgba(79, 70, 229, 0.08);
+  color: var(--category-color, var(--primary));
+}
+
+.pricing-pill {
+  color: #fff;
+}
+
+.pricing-free {
+  background: var(--free);
+}
+
+.pricing-freemium {
+  background: var(--freemium);
+}
+
+.pricing-paid {
+  background: var(--paid);
+}
+
+.tool-card h3 {
+  margin: 0;
+  font-size: 1.3rem;
+  line-height: 1.3;
+}
+
+.tool-card p {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.65;
+}
+
+.tool-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  border-radius: 14px;
+  background: rgba(79, 70, 229, 0.04);
+  padding: 12px 14px;
+}
+
+.meta-label {
+  color: var(--primary-dark);
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.tool-meta span:last-child {
+  color: var(--ink);
+  font-weight: 600;
+  line-height: 1.5;
+}
+
+.tool-link {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  margin-top: auto;
+  padding: 0.8rem 1rem;
+  border-radius: 12px;
+  background: linear-gradient(135deg, var(--category-color, var(--primary)) 0%, rgba(124, 58, 237, 0.92) 100%);
+  color: #fff;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  transition: opacity 0.2s ease;
+}
+
+.tool-link:hover {
+  opacity: 0.96;
+}
+
+.empty-state {
+  background: rgba(255, 255, 255, 0.85);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  padding: 28px 20px;
+  text-align: center;
+  color: var(--muted);
+  box-shadow: 0 14px 28px rgba(15, 23, 42, 0.04);
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.category-writing {
+  --category-color: var(--writing);
+}
+
+.category-research {
+  --category-color: var(--research);
+}
+
+.category-learning {
+  --category-color: var(--learning);
+}
+
+.category-coding {
+  --category-color: var(--coding);
+}
+
+.category-study {
+  --category-color: var(--study);
+}
+
+.category-design {
+  --category-color: var(--design);
+}
+
+@media (max-width: 760px) {
+  .header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .hero-panel {
+    grid-template-columns: 1fr;
+  }
+
+  .hero-stats {
+    grid-template-columns: repeat(3, minmax(100px, 1fr));
+  }
+}
+
+@media (max-width: 520px) {
+  .page-shell {
+    padding: 30px 16px 56px;
+  }
+
+  .brand {
+    align-items: flex-start;
+  }
+
+  .hero-stats {
+    grid-template-columns: 1fr;
+  }
+
+  .toolbar {
+    padding: 12px;
+  }
+}
