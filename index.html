@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Student AI Tools Finder</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <header class="header">
+        <div>
+          <p class="eyebrow">Student productivity</p>
+          <h1>Free AI Tools for Students</h1>
+        </div>
+        <button id="refreshBtn" class="primary-btn">Refresh Tools</button>
+      </header>
+
+      <section class="toolbar">
+        <input
+          id="searchInput"
+          type="text"
+          placeholder="Search for a tool or feature..."
+          aria-label="Search AI tools"
+        />
+        <select id="categoryFilter" aria-label="Filter by category">
+          <option value="all">All categories</option>
+          <option value="Writing">Writing</option>
+          <option value="Research">Research</option>
+          <option value="Learning">Learning</option>
+          <option value="Coding">Coding</option>
+          <option value="Study">Study</option>
+          <option value="Design">Design</option>
+        </select>
+      </section>
+
+      <p id="status" class="status">Loading free AI tools...</p>
+
+      <main id="toolsGrid" class="tools-grid" aria-live="polite"></main>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
